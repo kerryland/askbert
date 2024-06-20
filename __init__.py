@@ -14,6 +14,7 @@ from typing import Literal
 from homeassistant.components import conversation
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import CONF_API_KEY, MATCH_ALL
+from homeassistant.const import EVENT_HOMEASSISTANT_STARTED
 from homeassistant.core import callback
 from homeassistant.core import HomeAssistant
 from homeassistant.exceptions import ConfigEntryNotReady, TemplateError
@@ -39,6 +40,57 @@ from .const import (
 
 _LOGGER = logging.getLogger(__name__)
 
+#def exportEntity(hass, entity):
+def exportEntity(hass, target_entity_id):
+    
+    entity_registry = er.async_get(hass)
+    entity = entity_registry.async_get(target_entity_id)
+
+    if not entity:
+        _LOGGER.warn(f"No entity found! {target_entity_id}")
+        return
+
+    #entity_domain = entity["entity_id"].split(".")[0]
+    #entity_name  = entity["entity_id"].split(".")[1]
+
+    entity_domain = entity.entity_id.split(".")[0]
+    entity_name  = entity.entity_id.split(".")[1]
+
+    services = hass.services.async_services()
+    #services = hass.services.async_services_for_domain(entity_domain)
+    
+    #_LOGGER.info(f"{entity_domain} Available services:")
+    #for domain, service_data in services.items():
+        #_LOGGER.info(f"Domain: {domain}")
+        #for service, schema in service_data.items():
+        #    _LOGGER.info(f"  Domain: {domain} Service: {service}")
+            #_LOGGER.info(f"    Description: {schema}")
+            #for field, field_info in schema.fields.items():
+            #    _LOGGER.info(f"    Field: {field}")
+            #    _LOGGER.info(f"      Description: {field_info}")
+            #    _LOGGER.info(f"      Example: {field_info.get('example', 'No example provided')}")
+
+
+    # find all the services appropriate for this entity
+    for domain, services in hass.services.async_services().items():
+        # _LOGGER.debug(domain + " vs " + entity_domain)
+
+        for service in services:
+
+            # domain = service["domain"]
+            if (domain == entity_domain):
+                # For scripts?
+                if (domain == "service"):
+                    if (service == entity_name):
+                        #self.bowservice(entity, set([entity_name] ))
+                        _LOGGER.debug(f"Entity Service Match {entity.entity_id}: {domain} {service} {entity.platform}")
+
+                else:
+                    _LOGGER.debug(f"Match {entity.entity_id}: {domain} {service} {entity.platform}")
+
+                    # self.bowservice(entity, set(domain.split("_")), entity_name)
+
+
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     """Set up Ask Bert Conversation from a config entry."""
@@ -60,6 +112,29 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
 
     conversation.async_set_agent(hass, entry, AskBertAgent(hass, entry))
 
+
+    async def handle_hass_started(event):
+        """Handle Home Assistant started event."""
+        _LOGGER.info("Home Assistant is fully set up and ready.")
+        entity_registry = er.async_get(hass)
+
+        for entity_id, entity_entry in entity_registry.entities.items():
+            #_LOGGER.info("Entity: %s", entity_id)
+
+            if entity_entry.options.get('conversation', {}).get('should_expose'):
+                exposed_entities.append(entity_id)
+                # TODO: Use entity_entry directly, not entity_id
+                exportEntity(hass, entity_id)
+
+                _LOGGER.info("Exposed entity: %s", entity_id)
+
+        _LOGGER.info("Total exposed entities: %d", len(exposed_entities))
+        
+
+    hass.bus.async_listen_once(EVENT_HOMEASSISTANT_STARTED, handle_hass_started)
+
+
+ 
     @callback
     def handle_entity_registry_updated(event):
         """Handle entity registry updated event."""
@@ -86,6 +161,8 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     hass.bus.async_listen("entity_registry_updated", handle_entity_registry_updated)
 
     # Initial check for already existing entities
+    # TODO: Cannot populate model here because not all services are yet populated
+
     entity_registry = er.async_get(hass)
 
     for entity_id, entity_entry in entity_registry.entities.items():
@@ -93,6 +170,8 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
 
         if entity_entry.options.get('conversation', {}).get('should_expose'):
             exposed_entities.append(entity_id)
+            #exportEntity(entity_entry)
+
             _LOGGER.info("Exposed entity: %s", entity_id)
 
     _LOGGER.info("Total exposed entities: %d", len(exposed_entities))
@@ -136,6 +215,8 @@ class AskBertAgent(conversation.AbstractConversationAgent):
         max_tokens = self.entry.options.get(CONF_MAX_TOKENS, DEFAULT_MAX_TOKENS)
         top_p = self.entry.options.get(CONF_TOP_P, DEFAULT_TOP_P)
         temperature = self.entry.options.get(CONF_TEMPERATURE, DEFAULT_TEMPERATURE)
+
+        exportEntity(self.hass, "light.yeelight_color5_0x1b10d365")
 
         if user_input.conversation_id in self.history:
             conversation_id = user_input.conversation_id
@@ -182,7 +263,7 @@ class AskBertAgent(conversation.AbstractConversationAgent):
 #       _LOGGER.debug("Response %s", result)
 #       response = result["choices"][0]["message"]
 
-        api_base = entry.data[CONF_BASE_URL]
+        api_base = self.entry.data[CONF_BASE_URL]
         api_url = api_base + '/ask'
         params = {'q': user_input.text}
 
@@ -221,3 +302,5 @@ class AskBertAgent(conversation.AbstractConversationAgent):
             },
             parse_result=False,
         )
+
+

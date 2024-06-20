@@ -1,8 +1,14 @@
 """The Ask Bert Conversation integration."""
 from __future__ import annotations
 
-from functools import partial
+import aiohttp
+import asyncio
+import async_timeout
+
 import logging
+import requests
+
+from functools import partial
 from typing import Literal
 
 from homeassistant.components import conversation
@@ -12,6 +18,7 @@ from homeassistant.core import HomeAssistant
 from homeassistant.exceptions import ConfigEntryNotReady, TemplateError
 from homeassistant.helpers import intent, template
 from homeassistant.util import ulid
+from homeassistant.helpers.aiohttp_client import async_get_clientsession
 
 from .const import (
     CONF_CHAT_MODEL,
@@ -132,15 +139,35 @@ class AskBertAgent(conversation.AbstractConversationAgent):
 #       _LOGGER.debug("Response %s", result)
 #       response = result["choices"][0]["message"]
 
-        response = "This is your reply"
-        messages.append(response)
-        self.history[conversation_id] = messages
+        api_url = 'http://192.168.1.4:5931/ask'
+        params = {'q': user_input.text}
 
-        intent_response = intent.IntentResponse(language=user_input.language)
-        intent_response.async_set_speech(response)
-        return conversation.ConversationResult(
-            response=intent_response, conversation_id=conversation_id
-        )
+        try:
+            async with async_timeout.timeout(10):
+                session = async_get_clientsession(self.hass)
+                async with session.get(api_url, params=params) as r:
+                    if r.status != 200:
+                        _LOGGER.error("Error fetching data from %s: %s", api_url, r.status)
+                        return
+                    data = await r.json()
+                    _LOGGER.debug("Received data: %s", data)
+                    response = data.get("message")
+                    messages.append(response)
+                    self.history[conversation_id] = messages
+
+                    intent_response = intent.IntentResponse(language=user_input.language)
+                    intent_response.async_set_speech(response)
+
+                    return conversation.ConversationResult(
+                        response=intent_response, conversation_id=conversation_id
+                    )
+                 
+        except asyncio.TimeoutError:
+            _LOGGER.error("Timeout fetching data from %s", api_url)
+        except aiohttp.ClientError as err:
+            _LOGGER.error("Client error fetching data from %s: %s", api_url, err)
+
+
 
     def _async_generate_prompt(self, raw_prompt: str) -> str:
         """Generate a prompt for the user."""

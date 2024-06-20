@@ -14,11 +14,13 @@ from typing import Literal
 from homeassistant.components import conversation
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import CONF_API_KEY, MATCH_ALL
+from homeassistant.core import callback
 from homeassistant.core import HomeAssistant
 from homeassistant.exceptions import ConfigEntryNotReady, TemplateError
 from homeassistant.helpers import intent, template
 from homeassistant.util import ulid
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
+from homeassistant.helpers import entity_registry as er
 
 from .const import (
     CONF_CHAT_MODEL,
@@ -41,7 +43,8 @@ _LOGGER = logging.getLogger(__name__)
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     """Set up Ask Bert Conversation from a config entry."""
     #_key = entry.data[CONF_API_KEY]
-    # api_base = entry.data[CONF_BASE_URL]
+    api_base = entry.data[CONF_BASE_URL]
+
 
     #try:
     #    await hass.async_add_executor_job(
@@ -53,14 +56,54 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     #except error.OpenAIError as err:
     #    raise ConfigEntryNotReady(err) from err
 
+    exposed_entities = []
+
     conversation.async_set_agent(hass, entry, AskBertAgent(hass, entry))
+
+    @callback
+    def handle_entity_registry_updated(event):
+        """Handle entity registry updated event."""
+        action = event.data.get('action')
+        entity_id = event.data.get('entity_id')
+        
+        entity_registry = er.async_get(hass)
+        if action == "create" or action == "update":
+            entity_entry = entity_registry.async_get(entity_id)
+
+            if entity_entry.options.get('conversation', {}).get('should_expose'):
+                exposed_entities.append(entity_id)
+                _LOGGER.info("Entity exposed to conversation agent: %s", entity_id)
+            else:
+                exposed_entities.remove(entity_id)
+                _LOGGER.info("Entity removed from conversation agent: %s", entity_id)
+
+        elif action == "remove":
+            exposed_entities.remove(entity_id)
+            _LOGGER.info("Entity removed: %s", entity_id)
+
+
+    # Register the event listener for entity registry updates
+    hass.bus.async_listen("entity_registry_updated", handle_entity_registry_updated)
+
+    # Initial check for already existing entities
+    entity_registry = er.async_get(hass)
+
+    for entity_id, entity_entry in entity_registry.entities.items():
+        #_LOGGER.info("Entity: %s", entity_entry)
+
+        if entity_entry.options.get('conversation', {}).get('should_expose'):
+            exposed_entities.append(entity_id)
+            _LOGGER.info("Exposed entity: %s", entity_id)
+
+    _LOGGER.info("Total exposed entities: %d", len(exposed_entities))
+    
     return True
 
 
 async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     """Unload Ask Bert."""
     #api_key = None
-    #api_base = DEFAULT_BASE_URL
+    api_base = DEFAULT_BASE_URL
     conversation.async_unset_agent(hass, entry)
     return True
 
@@ -139,7 +182,8 @@ class AskBertAgent(conversation.AbstractConversationAgent):
 #       _LOGGER.debug("Response %s", result)
 #       response = result["choices"][0]["message"]
 
-        api_url = 'http://192.168.1.4:5931/ask'
+        api_base = entry.data[CONF_BASE_URL]
+        api_url = api_base + '/ask'
         params = {'q': user_input.text}
 
         try:

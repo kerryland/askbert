@@ -23,15 +23,13 @@ class SentenceBuilder() :
         self.recordWords(identifyingWords, entity.attributes.get("friendly_name", None))
         self.recordWords(identifyingWords, entity.name)
         
-		# TODO: i18n
-        identifyingWords.add(entity.domain.split("_")
-        
         entityDescription = ""
         for word in identifyingWords:
             entityDescription += word + " "
 
         _LOGGER.debug(entityDescription)
         
+        # TODO: Why is entityDescription a string rather than keep as a set?
         pair = [ entityDescription, service, entity.entity_id ]
         self.word_service.append(pair)
         identifyingWords.clear()
@@ -43,7 +41,9 @@ class SentenceBuilder() :
 
         _LOGGER.info(f"Building {friendly}:  {entity.entity_id} {domain} {service} {platform}")
 
-        self.recordService(entity, service, set())
+		# TODO: i18n
+        initial = set(entity.domain.split("_"))
+        self.recordService(entity, service, initial)
 
 
 

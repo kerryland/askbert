@@ -7,6 +7,7 @@ import async_timeout
 
 import logging
 import requests
+import voluptuous as vol
 
 from functools import partial
 from typing import Literal
@@ -44,6 +45,25 @@ _LOGGER = logging.getLogger(__name__)
 
 sentenceBuilder = SentenceBuilder()
 
+def extract_schema_info(schema):
+    """Extract and log information from a voluptuous schema."""
+    if isinstance(schema, vol.All):
+		_LOGGER.debug("OH YES IT IS")
+        for validator in schema.validators:
+            if isinstance(validator, (dict, vol.Schema)):
+                schema = validator
+                break
+    
+    if isinstance(schema, vol.Schema):
+        schema = schema.schema
+
+    if isinstance(schema, dict):
+        for field_name, validator in schema.items():
+            description = getattr(validator, 'description', 'No description')
+            _LOGGER.info(f"    {field_name}: {description}")
+    else:
+        _LOGGER.info(f"    Unsupported schema type: {type(schema)}")
+
 #def exportEntity(hass, entity):
 def exportEntity(hass, target_entity_id):
     
@@ -66,9 +86,12 @@ def exportEntity(hass, target_entity_id):
     domain_services = hass.services.async_services_for_domain(domain)
     integration_services = hass.services.async_services_for_domain(entity_entry.platform)
 
-    for service in domain_services | integration_services:
-        sentenceBuilder.buildFromEntity(entity, entity_entry, domain, service)
+    for service_name, service_info in domain_services.items() | integration_services.items():
+        sentenceBuilder.buildFromEntity(entity, entity_entry, domain, service_name)
 
+        schema = service_info.schema
+        if schema:
+            extract_schema_info(schema)
 
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
@@ -98,17 +121,12 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         entity_registry = er.async_get(hass)
 
         for entity_id, entity_entry in entity_registry.entities.items():
-            #_LOGGER.info("Entity: %s", entity_id)
-
             if entity_entry.options.get('conversation', {}).get('should_expose'):
                 exposed_entities.append(entity_id)
                 # TODO: Use entity_entry directly, not entity_id
                 exportEntity(hass, entity_id)
 
-                _LOGGER.info("Exposed entity: %s", entity_id)
-
-        _LOGGER.info("Total exposed entities: %d", len(exposed_entities))
-        
+        #_LOGGER.info("Total exposed entities: %d", len(exposed_entities))
 
     hass.bus.async_listen_once(EVENT_HOMEASSISTANT_STARTED, handle_hass_started)
 
@@ -139,22 +157,6 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     # Register the event listener for entity registry updates
     hass.bus.async_listen("entity_registry_updated", handle_entity_registry_updated)
 
-    # Initial check for already existing entities
-    # TODO: Cannot populate model here because not all services are yet populated
-
-    entity_registry = er.async_get(hass)
-
-    for entity_id, entity_entry in entity_registry.entities.items():
-        #_LOGGER.info("Entity: %s", entity_entry)
-
-        if entity_entry.options.get('conversation', {}).get('should_expose'):
-            exposed_entities.append(entity_id)
-            #exportEntity(entity_entry)
-
-            _LOGGER.info("Exposed entity: %s", entity_id)
-
-    _LOGGER.info("Total exposed entities: %d", len(exposed_entities))
-    
     return True
 
 

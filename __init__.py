@@ -54,33 +54,20 @@ def exportEntity(hass, target_entity_id):
         _LOGGER.warn(f"No entity found! {target_entity_id}")
         return
 
+    # For 'platform'
+    entity_entry = entity_registry.async_get(target_entity_id)
+
     #entity_domain = entity["entity_id"].split(".")[0]
     #entity_name  = entity["entity_id"].split(".")[1]
 
-    entity_domain = entity.entity_id.split(".")[0]
+    domain = entity.entity_id.split(".")[0]
     entity_name  = entity.entity_id.split(".")[1]
 
-    #services = hass.services.async_services()
-    #services = hass.services.async_services_for_domain(entity_domain)
+    domain_services = hass.services.async_services_for_domain(domain)
+    integration_services = hass.services.async_services_for_domain(entity_entry.platform)
 
-    # find all the services appropriate for this entity
-    for domain, services in hass.services.async_services().items():
-        # _LOGGER.debug(domain + " vs " + entity_domain)
-
-        for service in services:
-            if (domain == entity_domain):
-                # For scripts?
-                if (domain == "service"):
-                    if (service == entity_name):
-                        #self.bowservice(entity, set([entity_name] ))
-                        _LOGGER.debug(f"Entity Service Match {entity.entity_id}: {domain} {service} {entity.platform}")
-
-                else:
-                    #_LOGGER.debug(f"Match {entity.entity_id}: {domain} {service} {entity.platform}")
-
-                    # self.bowservice(entity, set(domain.split("_")), entity_name)
-
-                    sentenceBuilder.buildFromEntity(entity, domain, service)
+    for service in domain_services | integration_services:
+        sentenceBuilder.buildFromEntity(entity, entity_entry, domain, service)
 
 
 

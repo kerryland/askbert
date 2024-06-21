@@ -1,9 +1,13 @@
 
 import logging
+import json
 
 _LOGGER = logging.getLogger(__name__)
 
 class SentenceBuilder() :
+
+	# This ends up as a blob of json sent to the server. It is a list containing:
+    # - entityDescription, service, entity_id 
 
     word_service = []
 
@@ -20,27 +24,26 @@ class SentenceBuilder() :
         self.recordWords(identifyingWords, entity.name)
         
 		# TODO: i18n
-        identifyingWords.add(entity.domain)
+        identifyingWords.add(entity.domain.split("_")
         
-        sentence = ""
+        entityDescription = ""
         for word in identifyingWords:
-            sentence += word + " "
+            entityDescription += word + " "
+
+        _LOGGER.debug(entityDescription)
         
-        pair = [ sentence, service, entity.entity_id ]
+        pair = [ entityDescription, service, entity.entity_id ]
         self.word_service.append(pair)
-        _LOGGER.debug(sentence)
         identifyingWords.clear()
 
 
-
-    def buildFromEntity(self, entity, domain, service):
+    def buildFromEntity(self, entity, entity_entry, domain, service):
         friendly = entity.attributes.get("friendly_name")
-        _LOGGER.info(f"Building {friendly}:  {entity.entity_id} {domain} {service}")
+        platform = entity_entry.platform
 
-        #entity_domain = entity.entity_id.split(".")[0]
-        #entity_identifier  = entity.entity_id.split(".")[1]
+        _LOGGER.info(f"Building {friendly}:  {entity.entity_id} {domain} {service} {platform}")
 
-        self.recordService(entity, service, set(domain.split("_")))
+        self.recordService(entity, service, set())
 
 
 

@@ -38,13 +38,17 @@ from .const import (
     DEFAULT_BASE_URL,
 )
 
+from .sentence_builder import SentenceBuilder
+
 _LOGGER = logging.getLogger(__name__)
+
+sentenceBuilder = SentenceBuilder()
 
 #def exportEntity(hass, entity):
 def exportEntity(hass, target_entity_id):
     
     entity_registry = er.async_get(hass)
-    entity = entity_registry.async_get(target_entity_id)
+    entity = hass.states.get(target_entity_id)
 
     if not entity:
         _LOGGER.warn(f"No entity found! {target_entity_id}")
@@ -56,28 +60,14 @@ def exportEntity(hass, target_entity_id):
     entity_domain = entity.entity_id.split(".")[0]
     entity_name  = entity.entity_id.split(".")[1]
 
-    services = hass.services.async_services()
+    #services = hass.services.async_services()
     #services = hass.services.async_services_for_domain(entity_domain)
-    
-    #_LOGGER.info(f"{entity_domain} Available services:")
-    #for domain, service_data in services.items():
-        #_LOGGER.info(f"Domain: {domain}")
-        #for service, schema in service_data.items():
-        #    _LOGGER.info(f"  Domain: {domain} Service: {service}")
-            #_LOGGER.info(f"    Description: {schema}")
-            #for field, field_info in schema.fields.items():
-            #    _LOGGER.info(f"    Field: {field}")
-            #    _LOGGER.info(f"      Description: {field_info}")
-            #    _LOGGER.info(f"      Example: {field_info.get('example', 'No example provided')}")
-
 
     # find all the services appropriate for this entity
     for domain, services in hass.services.async_services().items():
         # _LOGGER.debug(domain + " vs " + entity_domain)
 
         for service in services:
-
-            # domain = service["domain"]
             if (domain == entity_domain):
                 # For scripts?
                 if (domain == "service"):
@@ -86,9 +76,11 @@ def exportEntity(hass, target_entity_id):
                         _LOGGER.debug(f"Entity Service Match {entity.entity_id}: {domain} {service} {entity.platform}")
 
                 else:
-                    _LOGGER.debug(f"Match {entity.entity_id}: {domain} {service} {entity.platform}")
+                    #_LOGGER.debug(f"Match {entity.entity_id}: {domain} {service} {entity.platform}")
 
                     # self.bowservice(entity, set(domain.split("_")), entity_name)
+
+                    sentenceBuilder.buildFromEntity(entity, domain, service)
 
 
 

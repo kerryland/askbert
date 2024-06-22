@@ -4,6 +4,7 @@ from __future__ import annotations
 import aiohttp
 import asyncio
 import async_timeout
+import json
 
 import logging
 import requests
@@ -20,6 +21,7 @@ from homeassistant.core import callback
 from homeassistant.core import HomeAssistant
 from homeassistant.exceptions import ConfigEntryNotReady, TemplateError
 from homeassistant.helpers import intent, template
+from homeassistant.helpers.service import async_get_all_descriptions
 from homeassistant.util import ulid
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 from homeassistant.helpers import entity_registry as er
@@ -45,27 +47,8 @@ _LOGGER = logging.getLogger(__name__)
 
 sentenceBuilder = SentenceBuilder()
 
-def extract_schema_info(schema):
-    """Extract and log information from a voluptuous schema."""
-    if isinstance(schema, vol.All):
-		_LOGGER.debug("OH YES IT IS")
-        for validator in schema.validators:
-            if isinstance(validator, (dict, vol.Schema)):
-                schema = validator
-                break
-    
-    if isinstance(schema, vol.Schema):
-        schema = schema.schema
 
-    if isinstance(schema, dict):
-        for field_name, validator in schema.items():
-            description = getattr(validator, 'description', 'No description')
-            _LOGGER.info(f"    {field_name}: {description}")
-    else:
-        _LOGGER.info(f"    Unsupported schema type: {type(schema)}")
-
-#def exportEntity(hass, entity):
-def exportEntity(hass, target_entity_id):
+def exportEntity(hass, target_entity_id, system_descriptions):
     
     entity_registry = er.async_get(hass)
     entity = hass.states.get(target_entity_id)
@@ -77,11 +60,18 @@ def exportEntity(hass, target_entity_id):
     # For 'platform'
     entity_entry = entity_registry.async_get(target_entity_id)
 
+    #_LOGGER.info("entity")
+    #_LOGGER.info(dir(entity))
+
+    #_LOGGER.info("entity_entry")
+    #_LOGGER.info(dir(entity_entry))
+
     #entity_domain = entity["entity_id"].split(".")[0]
     #entity_name  = entity["entity_id"].split(".")[1]
 
     domain = entity.entity_id.split(".")[0]
     entity_name  = entity.entity_id.split(".")[1]
+    platform = entity_entry.platform
 
     domain_services = hass.services.async_services_for_domain(domain)
     integration_services = hass.services.async_services_for_domain(entity_entry.platform)
@@ -89,9 +79,27 @@ def exportEntity(hass, target_entity_id):
     for service_name, service_info in domain_services.items() | integration_services.items():
         sentenceBuilder.buildFromEntity(entity, entity_entry, domain, service_name)
 
-        schema = service_info.schema
-        if schema:
-            extract_schema_info(schema)
+        # Start dumb test
+        #service_definition = domain_services.get(service_name, {})
+
+        if service_info:
+            # Extract the names of properties (fields)
+            _LOGGER.debug(f"Service. Platform: {platform} Domain: {domain} Service name: {service_name}")
+
+        else:
+            _LOGGER.debug(f"ServiceN {domain}.{service_name} not found")
+
+        if service_name in system_descriptions[platform]:
+            command = system_descriptions[platform][service_name]
+        else:
+            command = system_descriptions[domain][service_name]
+
+        _LOGGER.debug(f"Command: {service_name}:  {command['name']}")
+
+        for field in command["fields"]:
+            _LOGGER.debug(f"Field: {field}")
+
+
 
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
@@ -120,11 +128,17 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         _LOGGER.info("Home Assistant is fully set up and ready.")
         entity_registry = er.async_get(hass)
 
+        system_descriptions = await async_get_all_descriptions(hass)
+
+        #_LOGGER.info(dir(descriptions))
+        #_LOGGER.info(json.dumps(descriptions))
+
+
         for entity_id, entity_entry in entity_registry.entities.items():
             if entity_entry.options.get('conversation', {}).get('should_expose'):
                 exposed_entities.append(entity_id)
                 # TODO: Use entity_entry directly, not entity_id
-                exportEntity(hass, entity_id)
+                exportEntity(hass, entity_id, system_descriptions)
 
         #_LOGGER.info("Total exposed entities: %d", len(exposed_entities))
 
@@ -196,8 +210,6 @@ class AskBertAgent(conversation.AbstractConversationAgent):
         max_tokens = self.entry.options.get(CONF_MAX_TOKENS, DEFAULT_MAX_TOKENS)
         top_p = self.entry.options.get(CONF_TOP_P, DEFAULT_TOP_P)
         temperature = self.entry.options.get(CONF_TEMPERATURE, DEFAULT_TEMPERATURE)
-
-        exportEntity(self.hass, "light.yeelight_color5_0x1b10d365")
 
         if user_input.conversation_id in self.history:
             conversation_id = user_input.conversation_id

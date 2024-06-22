@@ -19,13 +19,19 @@ class SentenceBuilder() :
         return False
 
 
-    def recordService(self, entity, service, identifyingWords):
+    def recordService(self, identifyingWords, entity, service, command, fields):
         self.recordWords(identifyingWords, entity.attributes.get("friendly_name", None))
         self.recordWords(identifyingWords, entity.name)
+        self.recordWords(identifyingWords, command)
         
+        for field, field_properties in fields:
+            if field_properties.get("required", False):
+               self.recordWords(identifyingWords, ">" + field + "<")
+
         entityDescription = ""
         for word in identifyingWords:
             entityDescription += word + " "
+
 
         _LOGGER.debug(entityDescription)
         
@@ -35,15 +41,11 @@ class SentenceBuilder() :
         identifyingWords.clear()
 
 
-    def buildFromEntity(self, entity, entity_entry, domain, service):
-        friendly = entity.attributes.get("friendly_name")
-        platform = entity_entry.platform
-
-        _LOGGER.info(f"Building {friendly}:  {entity.entity_id} {domain} {service} {platform}")
-
+    def buildFromEntity(self, entity, entity_entry, domain, service, command, fields):
 		# TODO: i18n
         initial = set(entity.domain.split("_"))
-        self.recordService(entity, service, initial)
+
+        self.recordService(initial, entity, service, command, fields )
 
 
 

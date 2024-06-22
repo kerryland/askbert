@@ -77,17 +77,6 @@ def exportEntity(hass, target_entity_id, system_descriptions):
     integration_services = hass.services.async_services_for_domain(entity_entry.platform)
 
     for service_name, service_info in domain_services.items() | integration_services.items():
-        sentenceBuilder.buildFromEntity(entity, entity_entry, domain, service_name)
-
-        # Start dumb test
-        #service_definition = domain_services.get(service_name, {})
-
-        if service_info:
-            # Extract the names of properties (fields)
-            _LOGGER.debug(f"Service. Platform: {platform} Domain: {domain} Service name: {service_name}")
-
-        else:
-            _LOGGER.debug(f"ServiceN {domain}.{service_name} not found")
 
         if service_name in system_descriptions[platform]:
             command = system_descriptions[platform][service_name]
@@ -96,8 +85,10 @@ def exportEntity(hass, target_entity_id, system_descriptions):
 
         _LOGGER.debug(f"Command: {service_name}:  {command['name']}")
 
-        for field in command["fields"]:
-            _LOGGER.debug(f"Field: {field}")
+
+        sentenceBuilder.buildFromEntity(entity, entity_entry, domain, service_name,
+                                        command['name'], command['fields'].items())
+
 
 
 

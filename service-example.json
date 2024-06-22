@@ -1,0 +1,38 @@
+  "light": {
+    "turn_on": {
+      "name": "Turn on",
+      "description": "Turn on one or more lights and adjust properties of the light, even when they are turned on already.",
+      "fields": {
+        "transition": {
+          "filter": {
+            "supported_features": [
+              32
+            ]
+          },
+          "selector": {
+            "number": {
+              "min": 0,
+              "max": 300,
+              "unit_of_measurement": "seconds"
+            }
+          },
+          "name": "Transition",
+          "description": "Duration it takes to get to next state."
+        },
+        "rgb_color": {
+          "filter": {
+            "attribute": {
+              "supported_color_modes": [
+                "hs",
+                "xy",
+                "rgb",
+                "rgbw",
+                "rgbww"
+              ]
+            }
+          },
+        }
+      }
+    }
+  }
+

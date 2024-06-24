@@ -70,7 +70,7 @@ def exportEntity(hass, target_entity_id, system_descriptions):
     #entity_name  = entity["entity_id"].split(".")[1]
 
     domain = entity.entity_id.split(".")[0]
-    entity_name  = entity.entity_id.split(".")[1]
+    #entity_name  = entity.entity_id.split(".")[1]
     platform = entity_entry.platform
 
     domain_services = hass.services.async_services_for_domain(domain)
@@ -84,7 +84,6 @@ def exportEntity(hass, target_entity_id, system_descriptions):
             command = system_descriptions[domain][service_name]
 
         _LOGGER.debug(f"Command: {service_name}:  {command['name']}")
-
 
         sentenceBuilder.buildFromEntity(entity, entity_entry, domain, service_name,
                                         command['name'], command['fields'].items())
@@ -126,12 +125,16 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
 
 
         for entity_id, entity_entry in entity_registry.entities.items():
-            if entity_entry.options.get('conversation', {}).get('should_expose'):
+            # TODO: Reinstate! 
+            #if entity_entry.options.get('conversation', {}).get('should_expose'):
                 exposed_entities.append(entity_id)
                 # TODO: Use entity_entry directly, not entity_id
                 exportEntity(hass, entity_id, system_descriptions)
 
         #_LOGGER.info("Total exposed entities: %d", len(exposed_entities))
+
+        _LOGGER.debug("Calling Dumping json")
+        await sentenceBuilder.adumpJson()
 
     hass.bus.async_listen_once(EVENT_HOMEASSISTANT_STARTED, handle_hass_started)
 

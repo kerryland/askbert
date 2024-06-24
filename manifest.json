@@ -8,6 +8,6 @@
   "iot_class": "local_polling",
   "issue_tracker": "https://github.com/kerryland/askbert/issues",
   "name": "Ask Bert Conversation",
-  "requirements": ["sentence-transformers"],
+  "requirements": [],
   "version": "0.1"
 }

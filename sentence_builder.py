@@ -54,19 +54,29 @@ class SentenceBuilder() :
 
     def add_item(self, target, key, value):
         if not key in target:
-            target[key] = set([value])
+            target[key] = set([])
 
         target[key].add(value)
 
 
     def logForExperiment(self, identifyingWords, entity, domain, service, command, fields):
-        self.recordWords(identifyingWords, entity.attributes.get("friendly_name", None))
-        # TODO: Check if name ever differs from friendly name
-        # self.recordWords(identifyingWords, entity.name)
+        if entity and entity.name:
+            entityName = entity.name.replace("_", " ")
+        else:
+            entityName = entity.entity_id
+
+        #self.recordWords(identifyingWords, entity.attributes.get("friendly_name", None))
+        # TODO: Check if name ever differs from friendly name (it does!!!)
+        self.recordWords(identifyingWords, entityName)
         self.recordWords(identifyingWords, command)
 
-        self.add_item(self.entityByDomain, domain, entity.entity_id)
-        self.add_item(self.sentenceByDomain, domain, command + " " + domain)
+        edata = {
+            "entity_id": entity.entity_id,
+            "name": entityName,
+        }
+
+        self.add_item(self.entityByDomain, domain, edata)
+        self.add_item(self.sentenceByDomain, domain + "." + service, command)
 
         
         # TODO: Deal with properties
@@ -87,9 +97,9 @@ class SentenceBuilder() :
         identifyingWords.clear()
 
 
-    def buildFromEntity(self, entity, entity_entry, domain, service, command, fields):
+    def buildFromEntity(self, entity, domain, service, command, fields):
 		# TODO: i18n
-        initial = set(entity.domain.split("_"))
+        initial = set(domain.split("_"))
 
         #TODO: Reinsate! 
         #self.recordService(initial, entity, service, command, fields )
@@ -97,12 +107,11 @@ class SentenceBuilder() :
         self.logForExperiment(initial, entity, domain, service, command, fields )
 
 
-    async def adumpJson(self):
-        _LOGGER.debug("Inside adumpJson Dumping json")
-        async with aiofiles.open('/tmp/entities.json', 'w', encoding='utf-8') as file:
+    async def adumpJson(self, outputpath):
+        async with aiofiles.open(outputpath + '/entities.json', 'w', encoding='utf-8') as file:
            await file.write(json.dumps(self.entityByDomain, ensure_ascii=False, default=list, indent=4))
 
-        async with aiofiles.open('/tmp/sentences.json', 'w', encoding='utf-8') as file:
+        async with aiofiles.open(outputpath + '/sentences.json', 'w', encoding='utf-8') as file:
            await file.write(json.dumps(self.sentenceByDomain, ensure_ascii=False, default=list, indent=4))
 
         _LOGGER.debug("Dumping json - done")

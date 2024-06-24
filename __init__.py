@@ -51,14 +51,16 @@ sentenceBuilder = SentenceBuilder()
 def exportEntity(hass, target_entity_id, system_descriptions):
     
     entity_registry = er.async_get(hass)
-    entity = hass.states.get(target_entity_id)
+    #entity = hass.states.get(target_entity_id)
+
+    # For 'platform'
+    entity = entity_registry.async_get(target_entity_id)
 
     if not entity:
         _LOGGER.warn(f"No entity found! {target_entity_id}")
         return
 
-    # For 'platform'
-    entity_entry = entity_registry.async_get(target_entity_id)
+
 
     #_LOGGER.info("entity")
     #_LOGGER.info(dir(entity))
@@ -69,24 +71,27 @@ def exportEntity(hass, target_entity_id, system_descriptions):
     #entity_domain = entity["entity_id"].split(".")[0]
     #entity_name  = entity["entity_id"].split(".")[1]
 
-    domain = entity.entity_id.split(".")[0]
+    domain = target_entity_id.split(".")[0]
     #entity_name  = entity.entity_id.split(".")[1]
-    platform = entity_entry.platform
+    platform = entity.platform
 
     domain_services = hass.services.async_services_for_domain(domain)
-    integration_services = hass.services.async_services_for_domain(entity_entry.platform)
+    integration_services = hass.services.async_services_for_domain(entity.platform)
 
     for service_name, service_info in domain_services.items() | integration_services.items():
 
-        if service_name in system_descriptions[platform]:
+        if platform in system_descriptions and service_name in system_descriptions[platform]:
             command = system_descriptions[platform][service_name]
-        else:
+        elif domain in system_descriptions and service_name in system_descriptions[domain]:
             command = system_descriptions[domain][service_name]
 
-        _LOGGER.debug(f"Command: {service_name}:  {command['name']}")
+        if command:
+            _LOGGER.debug(f"Command: {service_name}:  {command['name']}")
 
-        sentenceBuilder.buildFromEntity(entity, entity_entry, domain, service_name,
-                                        command['name'], command['fields'].items())
+            sentenceBuilder.buildFromEntity(entity, domain, service_name,
+                                            command['name'], command['fields'].items())
+        else:
+            _LOGGER.warn(f"Unknown Command: {service_name} in {platform} or {domain}")
 
 
 
@@ -133,8 +138,9 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
 
         #_LOGGER.info("Total exposed entities: %d", len(exposed_entities))
 
-        _LOGGER.debug("Calling Dumping json")
-        await sentenceBuilder.adumpJson()
+        jsonOutputPath = hass.config.path("tmp")
+        _LOGGER.debug("Calling Dumping json to " + jsonOutputPath)
+        await sentenceBuilder.adumpJson(jsonOutputPath)
 
     hass.bus.async_listen_once(EVENT_HOMEASSISTANT_STARTED, handle_hass_started)
 
@@ -150,12 +156,16 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         if action == "create" or action == "update":
             entity_entry = entity_registry.async_get(entity_id)
 
-            if entity_entry.options.get('conversation', {}).get('should_expose'):
-                exposed_entities.append(entity_id)
-                _LOGGER.info("Entity exposed to conversation agent: %s", entity_id)
-            else:
-                exposed_entities.remove(entity_id)
-                _LOGGER.info("Entity removed from conversation agent: %s", entity_id)
+            # TODO. Remove
+            exposed_entities.append(entity_id)
+
+            # TODO. Reinstate
+            #if entity_entry.options.get('conversation', {}).get('should_expose'):
+            #    exposed_entities.append(entity_id)
+            #    _LOGGER.info("Entity exposed to conversation agent: %s", entity_id)
+            #else:
+            #    exposed_entities.remove(entity_id)
+            #    _LOGGER.info("Entity removed from conversation agent: %s", entity_id)
 
         elif action == "remove":
             exposed_entities.remove(entity_id)

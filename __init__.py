@@ -51,7 +51,10 @@ sentenceBuilder = SentenceBuilder()
 def exportEntity(hass, target_entity_id, system_descriptions):
     
     entity_registry = er.async_get(hass)
-    #entity = hass.states.get(target_entity_id)
+    entity = hass.states.get(target_entity_id)
+    entity_name = None
+    if entity:
+        entity_name = entity.attributes.get("friendly_name", None)
 
     # For 'platform'
     entity = entity_registry.async_get(target_entity_id)
@@ -60,6 +63,9 @@ def exportEntity(hass, target_entity_id, system_descriptions):
         _LOGGER.warn(f"No entity found! {target_entity_id}")
         return
 
+
+    if not entity_name:
+        entity_name  = entity.entity_id.split(".")[1].replace("_", " ")
 
 
     #_LOGGER.info("entity")
@@ -72,7 +78,6 @@ def exportEntity(hass, target_entity_id, system_descriptions):
     #entity_name  = entity["entity_id"].split(".")[1]
 
     domain = target_entity_id.split(".")[0]
-    #entity_name  = entity.entity_id.split(".")[1]
     platform = entity.platform
 
     domain_services = hass.services.async_services_for_domain(domain)
@@ -88,7 +93,7 @@ def exportEntity(hass, target_entity_id, system_descriptions):
         if command:
             _LOGGER.debug(f"Command: {service_name}:  {command['name']}")
 
-            sentenceBuilder.buildFromEntity(entity, domain, service_name,
+            sentenceBuilder.buildFromEntity(entity, entity_name, domain, service_name,
                                             command['name'], command['fields'].items())
         else:
             _LOGGER.warn(f"Unknown Command: {service_name} in {platform} or {domain}")

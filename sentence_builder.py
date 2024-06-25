@@ -43,6 +43,7 @@ class SentenceBuilder() :
         identifyingWords.clear()
 
 
+    entityNames = {}
     entityByDomain = {} # dictionary
     sentenceByDomain = {} # dictionary
     fakeSentences = [
@@ -59,24 +60,15 @@ class SentenceBuilder() :
         target[key].add(value)
 
 
-    def logForExperiment(self, identifyingWords, entity, domain, service, command, fields):
-        if entity and entity.name:
-            entityName = entity.name.replace("_", " ")
-        else:
-            entityName = entity.entity_id
-
+    def logForExperiment(self, identifyingWords, entity, entityName, domain, service, command, fields):
         #self.recordWords(identifyingWords, entity.attributes.get("friendly_name", None))
         # TODO: Check if name ever differs from friendly name (it does!!!)
         self.recordWords(identifyingWords, entityName)
         self.recordWords(identifyingWords, command)
 
-        edata = {
-            "entity_id": entity.entity_id,
-            "name": entityName,
-        }
-
-        self.add_item(self.entityByDomain, domain, edata)
+        self.add_item(self.entityByDomain, domain, entity.entity_id)
         self.add_item(self.sentenceByDomain, domain + "." + service, command)
+        self.add_item(self.entityNames, entity.entity_id, entityName)
 
         
         # TODO: Deal with properties
@@ -97,22 +89,25 @@ class SentenceBuilder() :
         identifyingWords.clear()
 
 
-    def buildFromEntity(self, entity, domain, service, command, fields):
+    def buildFromEntity(self, entity, entityName, domain, service, command, fields):
 		# TODO: i18n
         initial = set(domain.split("_"))
 
         #TODO: Reinsate! 
         #self.recordService(initial, entity, service, command, fields )
 
-        self.logForExperiment(initial, entity, domain, service, command, fields )
+        self.logForExperiment(initial, entity, entityName, domain, service, command, fields )
 
 
     async def adumpJson(self, outputpath):
-        async with aiofiles.open(outputpath + '/entities.json', 'w', encoding='utf-8') as file:
+        async with aiofiles.open(outputpath + '/entity-by-domain.json', 'w', encoding='utf-8') as file:
            await file.write(json.dumps(self.entityByDomain, ensure_ascii=False, default=list, indent=4))
 
         async with aiofiles.open(outputpath + '/sentences.json', 'w', encoding='utf-8') as file:
            await file.write(json.dumps(self.sentenceByDomain, ensure_ascii=False, default=list, indent=4))
+
+        async with aiofiles.open(outputpath + '/entity-names.json', 'w', encoding='utf-8') as file:
+           await file.write(json.dumps(self.entityNames, ensure_ascii=False, default=list, indent=4))
 
         _LOGGER.debug("Dumping json - done")
 

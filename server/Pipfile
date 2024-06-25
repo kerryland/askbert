@@ -9,6 +9,7 @@ pip = "*"
 setuptools = "*"
 wheel = "*"
 spacy = "*"
+sentence-transformers = "*"
 
 [dev-packages]
 

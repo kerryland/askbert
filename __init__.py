@@ -64,7 +64,7 @@ def exportEntity(hass, target_entity_id, system_descriptions):
         return
 
 
-    if not entity_name:
+    if not entity_name or entity_name == '':
         entity_name  = entity.entity_id.split(".")[1].replace("_", " ")
 
 
@@ -87,6 +87,7 @@ def exportEntity(hass, target_entity_id, system_descriptions):
 
         if platform in system_descriptions and service_name in system_descriptions[platform]:
             command = system_descriptions[platform][service_name]
+
         elif domain in system_descriptions and service_name in system_descriptions[domain]:
             command = system_descriptions[domain][service_name]
 
@@ -97,7 +98,6 @@ def exportEntity(hass, target_entity_id, system_descriptions):
                                             command['name'], command['fields'].items())
         else:
             _LOGGER.warn(f"Unknown Command: {service_name} in {platform} or {domain}")
-
 
 
 

@@ -67,7 +67,7 @@ class SentenceBuilder() :
         self.recordWords(identifyingWords, command)
 
         self.add_item(self.entityByDomain, domain, entity.entity_id)
-        self.add_item(self.sentenceByDomain, domain + "." + service, command)
+        self.add_item(self.sentenceByDomain, command, domain + "." + service)
         self.add_item(self.entityNames, entity.entity_id, entityName)
 
         

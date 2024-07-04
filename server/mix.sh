@@ -1,1 +1,1 @@
-pipenv run python python/mix.py
+pipenv run python src/mix.py

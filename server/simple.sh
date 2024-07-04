@@ -1,1 +1,1 @@
-pipenv run python python/simple.py
+pipenv run python src/simple.py

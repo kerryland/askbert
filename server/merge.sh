@@ -1,1 +1,1 @@
-pipenv run python python/merge.py
+pipenv run python src/merge.py

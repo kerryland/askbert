@@ -45,12 +45,7 @@ class SentenceBuilder() :
 
     entityNames = {}
     entityByDomain = {} # dictionary
-    sentenceByDomain = {} # dictionary
-    fakeSentences = [
-       "switch the bedroom light on",
-       "make it warmer in the dining room",
-       "kitchen lights off",
-            ] # List
+    dataBySentence = {} # dictionary
 
 
     def add_item(self, target, key, value):
@@ -67,18 +62,28 @@ class SentenceBuilder() :
         self.recordWords(identifyingWords, command)
 
         self.add_item(self.entityByDomain, domain, entity.entity_id)
-        self.add_item(self.sentenceByDomain, command, domain + "." + service)
         self.add_item(self.entityNames, entity.entity_id, entityName)
 
+        if not command in self.dataBySentence:
+            self.dataBySentence[command] = {}
+
+        full_service = domain + '.' + service
+        if not full_service in self.dataBySentence[command]:
+            self.dataBySentence[command][full_service] = []
+
+        self.dataBySentence[command][full_service].append( (entity.entity_id, entityName))
+
         
+
+        
+        entityDescription = ""
+        for word in identifyingWords:
+            entityDescription += word + " "
+
         # TODO: Deal with properties
         #for field, field_properties in fields:
         #    if field_properties.get("required", False):
         #       self.recordWords(identifyingWords, ">" + field + "<")
-
-        entityDescription = ""
-        for word in identifyingWords:
-            entityDescription += word + " "
 
 
         _LOGGER.debug(entityDescription)
@@ -104,7 +109,7 @@ class SentenceBuilder() :
            await file.write(json.dumps(self.entityByDomain, ensure_ascii=False, default=list, indent=4))
 
         async with aiofiles.open(outputpath + '/sentences.json', 'w', encoding='utf-8') as file:
-           await file.write(json.dumps(self.sentenceByDomain, ensure_ascii=False, default=list, indent=4))
+           await file.write(json.dumps(self.dataBySentence, ensure_ascii=False, default=list, indent=4))
 
         async with aiofiles.open(outputpath + '/entity-names.json', 'w', encoding='utf-8') as file:
            await file.write(json.dumps(self.entityNames, ensure_ascii=False, default=list, indent=4))

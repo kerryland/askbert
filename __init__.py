@@ -48,7 +48,39 @@ _LOGGER = logging.getLogger(__name__)
 sentenceBuilder = SentenceBuilder()
 
 
+def exportServices(hass):
+    _LOGGER.debug("Exporting Services")
+    services = hass.services.async_services()
+
+    for domain, service_info in services.items():
+        for service, info in service_info.items():
+           _LOGGER.debug(f"Found {domain} -- {service}")
+
+
+
 def exportEntity(hass, target_entity_id, system_descriptions):
+
+    def plunkDown(serviceType):
+        ctype = None
+        command = None
+
+        # TODO: These are platform-level commands that apply to the platform as whole
+        # not to each entity exposed by the platform (aka integration)
+        #if platform in system_descriptions and service_name in system_descriptions[platform]:
+        #    command = system_descriptions[platform][service_name]
+        #    ctype = "p (" + platform + ")"
+
+        if domain in system_descriptions and service_name in system_descriptions[domain]:
+            command = system_descriptions[domain][service_name]
+            ctype = "d (" + domain + ")"
+
+        if command:
+            _LOGGER.debug(f"Command: {serviceType}-{ctype}.  {service_name}:  {command['name']}")
+
+            sentenceBuilder.buildFromEntity(entity, entity_name, domain, service_name,
+                                            command['name'], command['fields'].items())
+        else:
+            _LOGGER.warn(f"Unknown Command: {service_name} in {platform} or {domain}")
     
     entity_registry = er.async_get(hass)
     entity = hass.states.get(target_entity_id)
@@ -61,6 +93,9 @@ def exportEntity(hass, target_entity_id, system_descriptions):
 
     if not entity:
         _LOGGER.warn(f"No entity found! {target_entity_id}")
+        return
+
+    if entity.disabled_by != None:
         return
 
 
@@ -80,25 +115,16 @@ def exportEntity(hass, target_entity_id, system_descriptions):
     domain = target_entity_id.split(".")[0]
     platform = entity.platform
 
+    # exportServices(hass)
     domain_services = hass.services.async_services_for_domain(domain)
-    integration_services = hass.services.async_services_for_domain(entity.platform)
 
-    for service_name, service_info in domain_services.items() | integration_services.items():
+    for service_name, service_info in domain_services.items():
+        plunkDown("ds")
 
-        if platform in system_descriptions and service_name in system_descriptions[platform]:
-            command = system_descriptions[platform][service_name]
-
-        elif domain in system_descriptions and service_name in system_descriptions[domain]:
-            command = system_descriptions[domain][service_name]
-
-        if command:
-            _LOGGER.debug(f"Command: {service_name}:  {command['name']}")
-
-            sentenceBuilder.buildFromEntity(entity, entity_name, domain, service_name,
-                                            command['name'], command['fields'].items())
-        else:
-            _LOGGER.warn(f"Unknown Command: {service_name} in {platform} or {domain}")
-
+    # TODO: Deal with integration services, which can duplicate domain services
+    #integration_services = hass.services.async_services_for_domain(entity.platform)
+    #for service_name, service_info in integration_services.items():
+    #    plunkDown("is")
 
 
 
@@ -130,6 +156,18 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
 
         system_descriptions = await async_get_all_descriptions(hass)
 
+        # scripts are stored very weirdly in home assistant
+        # so process them as a special case
+        # scripts = system_descriptions['script']
+
+
+        del system_descriptions['script']
+        #system_descriptions['script'] = {'execute':{'name':"Execute",'description':'Run the script'}}
+
+        # could just remove "turn_off", "turn_on", reload and  "toggle" (retaining "trigger")
+        del system_descriptions['automation']
+        
+
         #_LOGGER.info(dir(descriptions))
         #_LOGGER.info(json.dumps(descriptions))
 
@@ -145,6 +183,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
 
         jsonOutputPath = hass.config.path("tmp")
         _LOGGER.debug("Calling Dumping json to " + jsonOutputPath)
+
         await sentenceBuilder.adumpJson(jsonOutputPath)
 
     hass.bus.async_listen_once(EVENT_HOMEASSISTANT_STARTED, handle_hass_started)

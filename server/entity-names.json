@@ -1,0 +1,1046 @@
+{
+    "person.admin": [
+        "admin"
+    ],
+    "weather.home": [
+        "Forecast Home"
+    ],
+    "remote.l_remote_remote": [
+        "Lounge Remote"
+    ],
+    "media_player.tv_samsung_led55_2": [
+        "[TV]Samsung LED55"
+    ],
+    "media_player.family_room": [
+        "Sonos"
+    ],
+    "switch.sonos_family_room_crossfade": [
+        "Family Room Crossfade"
+    ],
+    "switch.sonos_family_room_night_sound": [
+        "Family Room Night sound"
+    ],
+    "switch.sonos_family_room_speech_enhancement": [
+        "Family Room Speech enhancement"
+    ],
+    "media_player.mibox4": [
+        "mibox4"
+    ],
+    "media_player.google_mini": [
+        "google mini"
+    ],
+    "person.kerry": [
+        "Kerry"
+    ],
+    "person.kaytlin": [
+        "Kaytlin"
+    ],
+    "person.ryan": [
+        "Ryan"
+    ],
+    "person.fid": [
+        "Fid"
+    ],
+    "number.family_room_bass": [
+        "Family Room Bass"
+    ],
+    "number.family_room_treble": [
+        "Family Room Treble"
+    ],
+    "switch.sonos_family_room_surround_enabled": [
+        "Family Room Surround enabled"
+    ],
+    "light.dining2": [
+        "Dining 2"
+    ],
+    "switch.lounge_media": [
+        "media"
+    ],
+    "media_player.chromecast": [
+        "Chromecast"
+    ],
+    "media_player.marantz_sr5009": [
+        "marantz sr5009"
+    ],
+    "device_tracker.vog_l09": [
+        "HA App. Kerry"
+    ],
+    "device_tracker.s6_lite": [
+        "Photo Frame (Samsung S6 Lite)"
+    ],
+    "media_player.lounge_echo_spot": [
+        "Lounge Echo Spot"
+    ],
+    "media_player.kerry_s_echosim_beta": [
+        "Kerry's echosim_BETA"
+    ],
+    "media_player.everywhere": [
+        "Everywhere"
+    ],
+    "media_player.bedroom_echo_show": [
+        "Bedroom Echo Show"
+    ],
+    "media_player.family_room_sonos_beam": [
+        "Family Room Sonos Beam"
+    ],
+    "media_player.family_room_2": [
+        "Family Room"
+    ],
+    "switch.lounge_echo_spot_do_not_disturb_switch": [
+        "Lounge Echo Spot do not disturb switch"
+    ],
+    "switch.lounge_echo_spot_shuffle_switch": [
+        "Lounge Echo Spot shuffle switch"
+    ],
+    "switch.lounge_echo_spot_repeat_switch": [
+        "Lounge Echo Spot repeat switch"
+    ],
+    "switch.kerry_s_echosim_beta_do_not_disturb_switch": [
+        "Kerry's echosim_BETA do not disturb switch"
+    ],
+    "switch.kerry_s_echosim_beta_shuffle_switch": [
+        "Kerry's echosim_BETA shuffle switch"
+    ],
+    "switch.kerry_s_echosim_beta_repeat_switch": [
+        "Kerry's echosim_BETA repeat switch"
+    ],
+    "switch.everywhere_do_not_disturb_switch": [
+        "Everywhere do not disturb switch"
+    ],
+    "switch.everywhere_shuffle_switch": [
+        "Everywhere shuffle switch"
+    ],
+    "switch.everywhere_repeat_switch": [
+        "Everywhere repeat switch"
+    ],
+    "switch.bedroom_echo_show_do_not_disturb_switch": [
+        "Bedroom Echo Show do not disturb switch"
+    ],
+    "switch.bedroom_echo_show_shuffle_switch": [
+        "Bedroom Echo Show shuffle switch"
+    ],
+    "switch.bedroom_echo_show_repeat_switch": [
+        "Bedroom Echo Show repeat switch"
+    ],
+    "switch.family_room_sonos_beam_do_not_disturb_switch": [
+        "Family Room Sonos Beam do not disturb switch"
+    ],
+    "switch.family_room_sonos_beam_shuffle_switch": [
+        "Family Room Sonos Beam shuffle switch"
+    ],
+    "switch.family_room_sonos_beam_repeat_switch": [
+        "Family Room Sonos Beam repeat switch"
+    ],
+    "switch.family_room_do_not_disturb_switch": [
+        "Family Room do not disturb switch"
+    ],
+    "switch.family_room_shuffle_switch": [
+        "Family Room shuffle switch"
+    ],
+    "switch.family_room_repeat_switch": [
+        "Family Room repeat switch"
+    ],
+    "alarm_control_panel.alexa_guard_63586": [
+        "Alexa Guard 63586"
+    ],
+    "media_player.lg_webos_smart_tv": [
+        "LG webOS Smart TV"
+    ],
+    "light.masterbedroom": [
+        "Bedroom Light"
+    ],
+    "number.family_room_audio_delay": [
+        "Family Room Audio delay"
+    ],
+    "device_tracker.sm_t860": [
+        "Samsung S6"
+    ],
+    "update.home_assistant_supervisor_update": [
+        "Home Assistant Supervisor Update"
+    ],
+    "update.home_assistant_core_update": [
+        "Home Assistant Core Update"
+    ],
+    "update.file_editor_update": [
+        "File editor Update"
+    ],
+    "update.zigbee2mqtt_update": [
+        "Zigbee2MQTT Update"
+    ],
+    "update.home_assistant_google_drive_backup_update": [
+        "Home Assistant Google Drive Backup Update"
+    ],
+    "device_tracker.kerry_s_keys": [
+        "Kerry's Keys"
+    ],
+    "device_tracker.kerry_s_phone": [
+        "Kerry's phone"
+    ],
+    "number.family_room_surround_level": [
+        "Family Room Surround level"
+    ],
+    "number.family_room_music_surround_level": [
+        "Family Room Music surround level"
+    ],
+    "switch.family_room_loudness": [
+        "Family Room Loudness"
+    ],
+    "switch.family_room_surround_music_full_volume": [
+        "Family Room Surround music full volume"
+    ],
+    "light.kitchen_main": [
+        "Kitchen Main"
+    ],
+    "button.mismartledceilinglight450_9b76_identify": [
+        "MiSmartLEDCeilingLight450-9B76 Identify"
+    ],
+    "button.mismartledceilinglight450_92e0_identify": [
+        "MiSmartLEDCeilingLight450-92E0 Identify"
+    ],
+    "light.hallcorner": [
+        "Hall Corner"
+    ],
+    "light.hall_bathroom": [
+        "Hall Bathroom"
+    ],
+    "light.frontdoor": [
+        "Front Door Light"
+    ],
+    "media_player.tv_samsung_led55": [
+        "Samsung TV"
+    ],
+    "light.yeelink_color5_b130_light": [
+        "Kitchen Light 1 Light"
+    ],
+    "light.upstairs_left": [
+        "Upstairs Left Light"
+    ],
+    "light.upstairs_right": [
+        "Upstairs Right Light"
+    ],
+    "device_tracker.huawei_p30_pro": [
+        "p30k"
+    ],
+    "switch.dishwasher_program_auto1": [
+        "Dishwasher Program Auto1"
+    ],
+    "switch.dishwasher_program_auto2": [
+        "Dishwasher Program Auto2"
+    ],
+    "switch.dishwasher_program_auto3": [
+        "Dishwasher Program Auto3"
+    ],
+    "switch.dishwasher_program_eco50": [
+        "Dishwasher Program Eco50"
+    ],
+    "switch.dishwasher_program_quick45": [
+        "Dishwasher Program Quick45"
+    ],
+    "switch.dishwasher_program_intensiv70": [
+        "Dishwasher Program Intensiv70"
+    ],
+    "switch.dishwasher_program_normal65": [
+        "Dishwasher Program Normal65"
+    ],
+    "switch.dishwasher_program_glas40": [
+        "Dishwasher Program Glas40"
+    ],
+    "switch.dishwasher_program_glasscare": [
+        "Dishwasher Program GlassCare"
+    ],
+    "switch.dishwasher_program_prerinse": [
+        "Dishwasher Program PreRinse"
+    ],
+    "switch.dishwasher_program_nightwash": [
+        "Dishwasher Program NightWash"
+    ],
+    "switch.dishwasher_program_quick65": [
+        "Dishwasher Program Quick65"
+    ],
+    "switch.dishwasher_program_normal45": [
+        "Dishwasher Program Normal45"
+    ],
+    "switch.dishwasher_program_intensiv45": [
+        "Dishwasher Program Intensiv45"
+    ],
+    "switch.dishwasher_program_autohalfload": [
+        "Dishwasher Program AutoHalfLoad"
+    ],
+    "switch.dishwasher_program_intensivpower": [
+        "Dishwasher Program IntensivPower"
+    ],
+    "switch.dishwasher_program_magicdaily": [
+        "Dishwasher Program MagicDaily"
+    ],
+    "switch.dishwasher_program_super60": [
+        "Dishwasher Program Super60"
+    ],
+    "switch.dishwasher_program_kurz60": [
+        "Dishwasher Program Kurz60"
+    ],
+    "switch.dishwasher_program_expresssparkle65": [
+        "Dishwasher Program ExpressSparkle65"
+    ],
+    "switch.dishwasher_program_machinecare": [
+        "Dishwasher Program MachineCare"
+    ],
+    "switch.dishwasher_program_steamfresh": [
+        "Dishwasher Program SteamFresh"
+    ],
+    "switch.dishwasher_program_maximumcleaning": [
+        "Dishwasher Program MaximumCleaning"
+    ],
+    "switch.dishwasher_power": [
+        "Dishwasher Power"
+    ],
+    "switch.family_media": [
+        "family media"
+    ],
+    "input_boolean.family_room_mute": [
+        "family_room_mute"
+    ],
+    "input_boolean.family_room_tv": [
+        "family_room_tv"
+    ],
+    "media_player.bruce": [
+        "bruce"
+    ],
+    "input_select.family_video_inputs": [
+        "Family Video Inputs"
+    ],
+    "input_text.family_video_source": [
+        "family_video_source"
+    ],
+    "input_select.marantz_command": [
+        "Marantz Command"
+    ],
+    "input_select.beamer_source_list": [
+        "beamer source list"
+    ],
+    "button.dining_main_light_identify": [
+        "Dining Main Identify"
+    ],
+    "light.dining_main": [
+        "Dining Main"
+    ],
+    "input_boolean.lounge_tv_auto_off": [
+        "Lounge TV auto off"
+    ],
+    "light.family_room_lights": [
+        "Family Room Lights "
+    ],
+    "light.dining_room_lights": [
+        "Dining Room Lights "
+    ],
+    "light.hallway_lights": [
+        "Hallway Lights"
+    ],
+    "light.living_room_front_lights": [
+        "Living Room Front Lights"
+    ],
+    "light.living_room_rear_lights": [
+        "Living Room Rear Lights"
+    ],
+    "light.living_room_lights": [
+        "Living Room Lights "
+    ],
+    "light.kitchen_lights": [
+        "Kitchen Lights"
+    ],
+    "switch.kerry_lamp": [
+        "Kerry Lamp"
+    ],
+    "select.kerry_lamp_power_on_behavior": [
+        "Kerry Lamp Power-on behavior"
+    ],
+    "update.kerry_lamp": [
+        "Kerry Lamp"
+    ],
+    "media_player.kerry_s_fire_tv": [
+        "Fire TV"
+    ],
+    "media_player.firetv4k": [
+        "Fire TV 4K"
+    ],
+    "switch.kerry_s_fire_tv_do_not_disturb_switch": [
+        "Fire TV do not disturb switch"
+    ],
+    "media_player.kodi_tablet": [
+        "Kodi Tablet"
+    ],
+    "media_player.kerry_phone": [
+        "Kodi Kerry"
+    ],
+    "switch.front_headerdetect": [
+        "Driveway Camera Human detection"
+    ],
+    "switch.front_pushnotifications": [
+        "Driveway Camera Push notifications"
+    ],
+    "switch.front_door_headerdetect": [
+        "Front Door Camera Human detection"
+    ],
+    "switch.front_door_pushnotifications": [
+        "Front Door Camera Push notifications"
+    ],
+    "siren.front_door_siren": [
+        "Front Door Camera Activate siren"
+    ],
+    "camera.front_door_camera": [
+        "Front Door Camera Camera (HD)"
+    ],
+    "switch.front_corner": [
+        "Front Corner Light"
+    ],
+    "select.front_corner_power_on_behavior": [
+        "Front Corner Light Power-on behavior"
+    ],
+    "device_tracker.redmi_note_9_pro": [
+        "Redmi Note 9 Pro"
+    ],
+    "input_boolean.night_lights": [
+        "Night Lights"
+    ],
+    "light.yeelink_color5_d562_light_2": [
+        "Kitchen Light 2 Light"
+    ],
+    "switch.viomi_v18_7c7e_repeat_cleaning": [
+        "Viomi S9 扫地机 Repeat Cleaning"
+    ],
+    "number.viomi_v18_7c7e_volume": [
+        "Viomi S9 Robot Cleaner Volume"
+    ],
+    "select.viomi_v18_7c7e_clean_mode": [
+        "Viomi S9 Robot Cleaner Clean Mode"
+    ],
+    "switch.garage_energy_light_do_not_disturb": [
+        "Garage Energy Light Do not disturb"
+    ],
+    "select.garage_energy_light_color_power_on_behavior": [
+        "Garage Energy Light Color power on behavior"
+    ],
+    "light.yeelink_color3_5f7d_light": [
+        "Kitchen Light 3 Light"
+    ],
+    "input_select.porch_cam_target": [
+        "Porch Cam Target"
+    ],
+    "device_tracker.p30pro": [
+        "Kerry Phone"
+    ],
+    "number.family_room_balance": [
+        "Family Room Balance"
+    ],
+    "switch.cam_porch_connection": [
+        "PorchCam Connection"
+    ],
+    "camera.cam_porch_latest_thumbnail": [
+        "PorchCam Latest Thumbnail"
+    ],
+    "switch.driveway_light": [
+        "Driveway Light"
+    ],
+    "select.driveway_light_power_on_behavior": [
+        "Driveway Light Power-on behavior"
+    ],
+    "switch.gamerone_power_plug": [
+        "Gamerone Power Plug"
+    ],
+    "update.gamerone_power_plug": [
+        "Gamerone Power Plug"
+    ],
+    "select.gamerone_power_plug_power_on_behavior": [
+        "Gamerone Power Plug power on behavior"
+    ],
+    "update.terminal_ssh_update": [
+        "Terminal & SSH Update"
+    ],
+    "input_boolean.whitelighton_front_door": [
+        "whiteLightOn_Front_Door"
+    ],
+    "remote.tv_samsung_led55": [
+        "Family TV"
+    ],
+    "button.driveway_onvif_reboot": [
+        "driveway-onvif Reboot"
+    ],
+    "button.driveway_onvif_set_system_date_and_time": [
+        "driveway-onvif Set System Date and Time"
+    ],
+    "camera.driveway_onvif_profile000": [
+        "driveway-onvif Profile000"
+    ],
+    "switch.driveway_onvif_autofocus": [
+        "driveway-onvif Autofocus"
+    ],
+    "switch.driveway_onvif_ir_lamp": [
+        "driveway-onvif IR lamp"
+    ],
+    "switch.driveway_onvif_wiper": [
+        "driveway-onvif Wiper"
+    ],
+    "input_number.bedroom_target_temperature": [
+        "Bedroom Target Temperature"
+    ],
+    "input_number.fake_temp": [
+        "Fake Temp"
+    ],
+    "light.garage_energy": [
+        "Garage Energy Light"
+    ],
+    "input_datetime.last_human_in_driveway": [
+        "Last Human In Driveway"
+    ],
+    "switch.192_168_1_34_front_facing_camera": [
+        "Front-facing camera"
+    ],
+    "switch.192_168_1_34_gps_active": [
+        "GPS active"
+    ],
+    "switch.192_168_1_34_motion_detection": [
+        "Motion detection"
+    ],
+    "switch.192_168_1_34_night_vision": [
+        "Night vision"
+    ],
+    "switch.192_168_1_34_overlay": [
+        "Overlay"
+    ],
+    "switch.192_168_1_34_torch": [
+        "Torch"
+    ],
+    "camera.photoframe": [
+        "photoframe"
+    ],
+    "input_select.skytv_source_list": [
+        "skytv source list"
+    ],
+    "input_select.skytv_channels": [
+        "skytv channels"
+    ],
+    "update.frigate_proxy_update": [
+        "Frigate Proxy Update"
+    ],
+    "input_select.media_input": [
+        "Media Input"
+    ],
+    "input_boolean.media_lights": [
+        "Media Lights"
+    ],
+    "input_select.media_source_list": [
+        "media source list"
+    ],
+    "input_text.media_active_device": [
+        "Media Active Device"
+    ],
+    "media_player.192_168_1_60": [
+        "Kodi - Fire TV"
+    ],
+    "media_player.android_2": [
+        "Android-3"
+    ],
+    "switch.underbed": [
+        "Underbed Light Switch"
+    ],
+    "light.family_area_1": [
+        "Family Area 1"
+    ],
+    "light.family_area_2": [
+        "Family Area 2"
+    ],
+    "light.family_area_3": [
+        "Family Area 3"
+    ],
+    "update.go2rtc_update": [
+        "go2rtc Update"
+    ],
+    "media_player.this_device": [
+        "This Device"
+    ],
+    "switch.this_device_do_not_disturb_switch": [
+        "This Device do not disturb switch"
+    ],
+    "light.upstairs_hall": [
+        "Upstairs Hall"
+    ],
+    "switch.living_room_gaming_plug_b": [
+        "Living Room Gaming Plug (B)"
+    ],
+    "switch.smart_plug_c": [
+        "smart plug c"
+    ],
+    "switch.media_power_a": [
+        "Living Room A"
+    ],
+    "switch.sonoff_10012c6cef_1": [
+        "Underbed USB Switch"
+    ],
+    "switch.sonoff_1001365610_1": [
+        "MicroUsb1"
+    ],
+    "switch.rfm69_sonoff_240v": [
+        "Sonoff 240v plug"
+    ],
+    "timer.hallway_off_timer": [
+        "Hallway Off Timer"
+    ],
+    "switch.letterbox_server_power_l1": [
+        "Letterbox Server Power L1"
+    ],
+    "switch.letterbox_server_power_l3": [
+        "Letterbox Server Power L3"
+    ],
+    "media_player.sky_box": [
+        "Sky Box"
+    ],
+    "remote.sky_box": [
+        "Sky Box"
+    ],
+    "media_player.sky_box_android": [
+        "Sky Box"
+    ],
+    "update.whisper_update": [
+        "Whisper Update"
+    ],
+    "update.piper_update": [
+        "Piper Update"
+    ],
+    "device_tracker.ryan_ping": [
+        "ryan ping"
+    ],
+    "device_tracker.fid_ping": [
+        "fid ping"
+    ],
+    "device_tracker.kaytlin_ping": [
+        "kaytlin_ping"
+    ],
+    "device_tracker.kerry_ping": [
+        "kerry ping"
+    ],
+    "update.openwakeword_update": [
+        "openWakeWord Update"
+    ],
+    "weather.home_2": [
+        "Home Forecast"
+    ],
+    "button.zigbee2mqtt_bridge_restart": [
+        "Zigbee2MQTT Bridge Restart"
+    ],
+    "select.zigbee2mqtt_bridge_log_level": [
+        "Zigbee2MQTT Bridge Log level"
+    ],
+    "switch.zigbee2mqtt_bridge_permit_join": [
+        "Zigbee2MQTT Bridge Permit join"
+    ],
+    "timer.stairwell_off_timer": [
+        "Stairwell off timer"
+    ],
+    "input_boolean.family_room_auto_off": [
+        "Family Room Auto-Off"
+    ],
+    "input_select.hallway_light_mode": [
+        "Hallway Light Mode"
+    ],
+    "timer.hallway_auto_reset": [
+        "Hallway Auto Reset"
+    ],
+    "light.yeelink_color3_ba34_light_2": [
+        "Bedroom Bulb Light"
+    ],
+    "light.yeelink_color5_beea_light_2": [
+        "Living Room Front 2 Light"
+    ],
+    "light.yeelink_color5_d015_light_2": [
+        "Living Room Front 1 Light"
+    ],
+    "light.yeelink_color5_0c70_light_2": [
+        "Living Room Rear 2 Light"
+    ],
+    "light.yeelink_ceiling22_9b76_light_2": [
+        "Hall Corner Light"
+    ],
+    "light.yeelink_ceiling22_92e0_light_2": [
+        "Hall Bathroom Light"
+    ],
+    "light.yeelink_color5_8f47_light_2": [
+        "Living Room Rear 1 Light"
+    ],
+    "input_boolean.living_room_lights_auto": [
+        "Living Room Lights Auto"
+    ],
+    "media_player.alexaskillsimulator57286009_8826_4d3f_91ff_36190a0b096c": [
+        "AlexaSkillSimulator57286009-8826-4d3f-91ff-36190a0b096c"
+    ],
+    "select.upstairs_motion_sensitivity": [
+        "Upstairs Motion Sensitivity"
+    ],
+    "select.upstairs_motion_keep_time": [
+        "Upstairs Motion Keep time"
+    ],
+    "number.upstairs_motion_illuminance_interval": [
+        "Upstairs Motion Illuminance interval"
+    ],
+    "select.motion_downhall2_sensitivity": [
+        "Motion Downhall 2 Sensitivity"
+    ],
+    "select.motion_downhall2_keep_time": [
+        "Motion Downhall 2 Keep time"
+    ],
+    "number.motion_downhall2_illuminance_interval": [
+        "Motion Downhall 2 Illuminance interval"
+    ],
+    "input_datetime.bathroom_last_recency": [
+        "bathroom last recency"
+    ],
+    "input_datetime.bedroom_last_recency": [
+        "bedroom last recency"
+    ],
+    "input_datetime.downstairs_hallway_last_recency": [
+        "downstairs hallway last recency"
+    ],
+    "input_datetime.family_room_last_recency": [
+        "family room last recency"
+    ],
+    "input_datetime.living_room_last_recency": [
+        "living room last recency"
+    ],
+    "input_datetime.garage_last_recency": [
+        "garage last recency"
+    ],
+    "input_select.bathroom_recency": [
+        "bathroom recency"
+    ],
+    "input_select.bedroom_recency": [
+        "bedroom recency"
+    ],
+    "input_select.downstairs_hallway_recency": [
+        "downstairs hallway recency"
+    ],
+    "input_select.family_room_recency": [
+        "family room recency"
+    ],
+    "input_select.living_room_recency": [
+        "living room recency"
+    ],
+    "input_select.gargage_recency": [
+        "gargage recency"
+    ],
+    "timer.bathroom_recency_timer": [
+        "bathroom recency timer"
+    ],
+    "timer.bedroom_recency_timer": [
+        "bedroom recency timer"
+    ],
+    "timer.downstairs_hallway_recency_timer": [
+        "downstairs hallway recency timer"
+    ],
+    "timer.family_room_recency_timer": [
+        "family room recency timer"
+    ],
+    "timer.living_room_recency_timer": [
+        "living room recency timer"
+    ],
+    "timer.garage_recency_timer": [
+        "garage recency timer"
+    ],
+    "input_datetime.stairwell_last_recency": [
+        "stairwell last recency"
+    ],
+    "input_datetime.upstairs_hallway_last_recency": [
+        "upstairs hallway last recency"
+    ],
+    "input_select.stairwell_recency": [
+        "stairwell recency"
+    ],
+    "input_select.upstairs_hallway_recency": [
+        "upstairs hallway recency"
+    ],
+    "timer.stairwell_recency_timer": [
+        "stairwell recency timer"
+    ],
+    "timer.upstairs_hallway_recency_timer": [
+        "upstairs hallway recency timer"
+    ],
+    "button.tv_lamp_plug_identify": [
+        "Gamerone Power Plug Identify"
+    ],
+    "button.kerry_lamp_identify": [
+        "Kerry Lamp Identify"
+    ],
+    "update.media_power_a_firmware": [
+        "Firmware"
+    ],
+    "update.living_room_gaming_plug_b_firmware": [
+        "Firmware"
+    ],
+    "climate.mitsubishi_heatpump": [
+        "Mitsubishi Heatpump"
+    ],
+    "select.mitsubishi_heatpump_air_flow_direction_vertical_setting": [
+        "Mitsubishi Heatpump Air flow direction (vertical) setting"
+    ],
+    "select.mitsubishi_heatpump_air_flow_rate_setting": [
+        "Mitsubishi Heatpump Air flow rate setting"
+    ],
+    "select.mitsubishi_heatpump_automatic_control_of_air_flow_direction_setting": [
+        "Mitsubishi Heatpump Automatic control of air flow direction setting"
+    ],
+    "select.mitsubishi_heatpump_automatic_swing_of_air_flow_setting": [
+        "Mitsubishi Heatpump Automatic swing of air flow setting"
+    ],
+    "light.dining_main2": [
+        "Dining Light Main Light"
+    ],
+    "number.yeelink_color3_ba34_off_delay_time_2": [
+        "Bedroom Bulb Light off_delay_time"
+    ],
+    "switch.washing_smart_plug": [
+        "Washing Smart Plug"
+    ],
+    "select.washing_smart_plug_power_outage_memory": [
+        "Washing Smart Plug Power outage memory"
+    ],
+    "select.washing_smart_plug_indicator_mode": [
+        "Washing Smart Plug Indicator mode"
+    ],
+    "lock.washing_smart_plug_child_lock": [
+        "Washing Smart Plug Child lock"
+    ],
+    "update.washing_smart_plug": [
+        "Washing Smart Plug"
+    ],
+    "switch.dryer_smart_plug": [
+        "Dryer Smart Plug"
+    ],
+    "select.dryer_smart_plug_power_outage_memory": [
+        "Dryer Smart Plug Power outage memory"
+    ],
+    "select.dryer_smart_plug_indicator_mode": [
+        "Dryer Smart Plug Indicator mode"
+    ],
+    "lock.dryer_smart_plug_child_lock": [
+        "Dryer Smart Plug Child lock"
+    ],
+    "update.dryer_smart_plug": [
+        "Dryer Smart Plug"
+    ],
+    "media_player.emby_chrome_windows": [
+        "Emby Chrome Windows"
+    ],
+    "media_player.emby_lg_smart_tv_oled65c6t_t": [
+        "Emby LG Smart TV (OLED65C6T-T)"
+    ],
+    "media_player.emby_tv_samsung_led55": [
+        "Emby [TV]Samsung LED55"
+    ],
+    "media_player.emby_vidbox": [
+        "Emby HomeAssistant"
+    ],
+    "media_player.emby_192_168_1_47_sonos_beam_rincon_f0f6c164f8d201400_family_room": [
+        "Emby 192.168.1.47 - Sonos Beam - RINCON_F0F6C164F8D201400 Family Room"
+    ],
+    "vacuum.viomi": [
+        "Viomi S9 Robot Cleaner"
+    ],
+    "update.esphome_update": [
+        "ESPHome Update"
+    ],
+    "update.vidbox_kb_thumper_firmware": [
+        "vidbox kb thumper Firmware"
+    ],
+    "number.vidbox_kb_thumper_vidbox_servo_control": [
+        "vidbox kb thumper Vidbox Servo Control"
+    ],
+    "timer.vidbox_off_timer": [
+        "Vidbox Off Timer"
+    ],
+    "switch.nzbget_download": [
+        "NZBGet Download"
+    ],
+    "climate.daikin_heatpump_daikin_heatpump": [
+        "daikin heatpump Daikin Heatpump"
+    ],
+    "media_player.emby_lg_webos_tv_oled65c6t": [
+        "Emby Network Device"
+    ],
+    "update.daikin_heatpump_firmware": [
+        "daikin heatpump Firmware"
+    ],
+    "climate.bedroom_heatpump": [
+        "Bedroom Heatpump"
+    ],
+    "select.family_temperature_temperature_unit": [
+        "Temperature unit"
+    ],
+    "number.family_temperature_temperature_calibration": [
+        "Temperature calibration"
+    ],
+    "number.family_temperature_humidity_calibration": [
+        "Humidity calibration"
+    ],
+    "update.home_assistant_operating_system_update": [
+        "Home Assistant Operating System Update"
+    ],
+    "media_player.emby_homeassistant": [
+        "Emby HomeAssistant"
+    ],
+    "media_player.emby_homeassistant_2": [
+        "Emby HomeAssistant"
+    ],
+    "media_player.emby_firefox_android": [
+        "Emby Firefox Android"
+    ],
+    "media_player.emby_microsoft_edge_windows": [
+        "Emby Microsoft Edge Windows"
+    ],
+    "select.family_temperature_temperature_unit_2": [
+        "Family Temperature Temperature unit"
+    ],
+    "number.family_temperature_temperature_calibration_2": [
+        "Family Temperature Temperature calibration"
+    ],
+    "number.family_temperature_humidity_calibration_2": [
+        "Family Temperature Humidity calibration"
+    ],
+    "switch.tv_bias_backlight_do_not_disturb": [
+        "TV Bias Backlight Do not disturb"
+    ],
+    "select.tv_bias_backlight_color_power_on_behavior": [
+        "TV Bias Backlight Color power on behavior"
+    ],
+    "light.stairwell": [
+        "Stairwell Light"
+    ],
+    "number.yeelink_color3_2027_off_delay_time": [
+        "Bias Light Light off_delay_time"
+    ],
+    "light.tvbias": [
+        "Bias Light Light"
+    ],
+    "light.yeelink_color3_2027_light": [
+        "Bias light Light"
+    ],
+    "number.yeelink_color3_2027_off_delay_time_2": [
+        "Bias light Light off_delay_time"
+    ],
+    "media_player.emby_kerry_s_fire_tv": [
+        "Emby Kerry's Fire TV"
+    ],
+    "media_player.emby_sm_t860": [
+        "Emby SM-T860"
+    ],
+    "update.mosquitto_broker_update": [
+        "Mosquitto broker Update"
+    ],
+    "media_player.emby_sky_box": [
+        "Emby Sky Box"
+    ],
+    "update.samba_share_update": [
+        "Samba share Update"
+    ],
+    "update.emqx_update": [
+        "EMQX Update"
+    ],
+    "update.promtail_update": [
+        "Promtail Update"
+    ],
+    "media_player.emby_hahaha": [
+        "Emby hahaha"
+    ],
+    "select.my_satellite_assist_pipeline": [
+        "Assist pipeline"
+    ],
+    "select.my_satellite_noise_suppression_level": [
+        "Noise suppression level"
+    ],
+    "switch.my_satellite_mute": [
+        "Mute"
+    ],
+    "number.my_satellite_auto_gain": [
+        "Auto gain"
+    ],
+    "number.my_satellite_mic_volume": [
+        "Mic volume"
+    ],
+    "switch.heated_blanket": [
+        "Heated Blanket"
+    ],
+    "select.heated_blanket_power_outage_memory": [
+        "Heated Blanket Power outage memory"
+    ],
+    "select.heated_blanket_indicator_mode": [
+        "Heated Blanket Indicator mode"
+    ],
+    "lock.heated_blanket_child_lock": [
+        "Heated Blanket Child lock"
+    ],
+    "update.heated_blanket": [
+        "Heated Blanket"
+    ],
+    "switch.electric_blanket": [
+        "Electric Blanket"
+    ],
+    "select.electric_blanket_power_outage_memory": [
+        "Electric Blanket Power outage memory"
+    ],
+    "select.electric_blanket_indicator_mode": [
+        "Electric Blanket Indicator mode"
+    ],
+    "lock.electric_blanket_child_lock": [
+        "Electric Blanket Child lock"
+    ],
+    "update.electric_blanket": [
+        "Electric Blanket"
+    ],
+    "input_number.electricity_peak_rate": [
+        "Electricity Peak Rate"
+    ],
+    "input_number.electricity_offpeak_rate": [
+        "Electricity Offpeak rate"
+    ],
+    "input_boolean.outside_lights": [
+        "Outside Lights"
+    ],
+    "switch.computer_plug": [
+        "Computer Plug"
+    ],
+    "select.computer_plug_power_outage_memory": [
+        "Computer Plug Power outage memory"
+    ],
+    "select.computer_plug_indicator_mode": [
+        "Computer Plug Indicator mode"
+    ],
+    "lock.computer_plug_child_lock": [
+        "Computer Plug Child lock"
+    ],
+    "update.computer_plug": [
+        "Computer Plug"
+    ],
+    "switch.p1": [
+        "p1"
+    ],
+    "switch.p9": [
+        "p9"
+    ],
+    "switch.p108": [
+        "p108"
+    ],
+    "switch.porch_light_l1": [
+        "Porch Light"
+    ],
+    "switch.family_tv_plug": [
+        "Family TV Plug"
+    ],
+    "select.family_tv_plug_power_outage_memory": [
+        "Family TV Plug Power outage memory"
+    ],
+    "select.family_tv_plug_indicator_mode": [
+        "Family TV Plug Indicator mode"
+    ],
+    "lock.family_tv_plug_child_lock": [
+        "Family TV Plug Child lock"
+    ],
+    "update.family_tv_plug": [
+        "Family TV Plug"
+    ]
+}
